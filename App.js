@@ -14,6 +14,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { height: 0, mass: 0, result: 0, resultText: "" }; //this.recuperaDb(); faltou achar um jeito recuperar na inicialização :/
+    this.recuperaDb();
     this.calculateIMC = this.calculateIMC.bind(this);
   }
 
@@ -25,13 +26,13 @@ export default class App extends React.Component {
     ).rows._array[0];
 
     if (!!!rs)
-      return {
+      this.state = {
         height: rs.height,
         mass: rs.mass,
         result: rs.result,
         resultText: this.showResultIMC(rs.result),
       };
-    else return { height: 0, mass: 0, result: 0, resultText: "" };
+    else this.state = { height: 0, mass: 0, result: 0, resultText: "" };
   }
 
   async insertDb(height, mass, result) {
